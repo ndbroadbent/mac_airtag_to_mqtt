@@ -1,0 +1,18 @@
+{
+  "editor.formatOnSave": true,
+  "files.trimTrailingWhitespace": true,
+  "ruby.rubocop.executePath": "/usr/local/bin/rubocop-daemon-wrapper/",
+  "ruby.lint": {
+    "rubocop": false
+  },
+  "[ruby]": {
+    "editor.defaultFormatter": "misogi.ruby-rubocop"
+  },
+  "ruby.rubocop.onSave": true,
+  "ruby.rubocop.autocorrectArg": "--except Lint/UnusedMethodArgument --auto-correct-all",
+  "editor.codeActionsOnSave": {
+    "source.fixAll.shellcheck": true
+  },
+  "shellcheck.customArgs": ["-x"],
+  "shellcheck.useWorkspaceRootAsCwd": true
+}

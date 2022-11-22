@@ -1,0 +1,332 @@
+AllCops:
+  MaxFilesInCache: 50000
+  NewCops: enable
+  Include:
+    - "**/*.rb"
+    - "Gemfile"
+    - "Rakefile"
+    - "lib/tasks/**/*.rake"
+  Exclude:
+    - "bin/**/*"
+    - "tmp/**/*"
+    - "db/schema.rb"
+    - "vendor/**/*"
+    - "ruby_encoder/**/*"
+    - "client/node_modules/**/*"
+    - "node_modules/**/*"
+    - "app/views/home/code_samples/ruby.rb"
+    - "api_clients/**/*"
+    - "ghost_blog/**/*"
+    - "scripts/exports/*"
+
+Style/GlobalVars:
+  AllowedVariables:
+    - $redis
+    - $ci_cache_redis
+    - $ci_cache_storage
+    - $ci_cache_bucket
+
+# Bug in RuboCop. See: https://github.com/rubocop-hq/rubocop/issues/6588
+Lint/RedundantCopDisableDirective:
+  Enabled: false
+
+Lint/RescueException:
+  Exclude:
+    - "lib/tasks/*.rake"
+
+Lint/SuppressedException:
+  Enabled: false
+
+# These can be useful to prevent a case being handled by the else
+Lint/EmptyWhen:
+  Enabled: false
+
+# Really annoying. I frequently return from a block
+# when I don't want to run any more code in the method
+Lint/NonLocalExitFromIterator:
+  Enabled: false
+
+Layout/LineLength:
+  Max: 150
+  Exclude:
+    - config/initializers/simple_form_bootstrap.rb
+    - Gemfile
+
+Style/StringLiterals:
+  EnforcedStyle: single_quotes
+
+Style/Documentation:
+  Enabled: false
+
+Style/IfUnlessModifier:
+  Enabled: false
+
+Metrics/AbcSize:
+  Enabled: false
+
+Metrics/ClassLength:
+  Enabled: false
+
+Metrics/CyclomaticComplexity:
+  Enabled: false
+
+Metrics/PerceivedComplexity:
+  Enabled: false
+
+Metrics/MethodLength:
+  Enabled: false
+
+Metrics/ModuleLength:
+  Enabled: false
+
+Metrics/ParameterLists:
+  Enabled: false
+
+Metrics/BlockLength:
+  Enabled: false
+
+Metrics/BlockNesting:
+  Max: 7
+
+Style/DoubleNegation:
+  Enabled: false
+
+Naming/FileName:
+  Exclude: ["Guardfile", "Gemfile", "**/Gemfile"]
+
+Naming/MethodParameterName:
+  Enabled: false
+
+Style/FormatStringToken:
+  EnforcedStyle: annotated
+
+# Disable Style/NumericLiterals so numbers don't need underscores
+Style/NumericLiterals:
+  Enabled: false
+
+Style/NumericPredicate:
+  EnforcedStyle: comparison
+
+Style/RedundantBegin:
+  Enabled: false
+
+# Honestly I don't care about this.
+Style/RegexpLiteral:
+  Enabled: false
+
+Style/SymbolArray:
+  Enabled: false
+
+Style/TrailingCommaInArguments:
+  EnforcedStyleForMultiline: no_comma
+
+Style/TrailingCommaInArrayLiteral:
+  EnforcedStyleForMultiline: consistent_comma
+
+Style/TrailingCommaInHashLiteral:
+  EnforcedStyleForMultiline: consistent_comma
+
+# Allow UTF8 chars in comments.
+Style/AsciiComments:
+  Enabled: false
+
+# Too annoying to require 'english' everywhere.
+Style/SpecialGlobalVars:
+  Enabled: false
+
+Style/HashEachMethods:
+  Enabled: false
+
+Style/HashTransformKeys:
+  Enabled: false
+
+Style/HashTransformValues:
+  Enabled: false
+
+Lint/RaiseException:
+  Enabled: true
+
+Lint/StructNewOverride:
+  Enabled: true
+
+Lint/DeprecatedOpenSSLConstant:
+  Enabled: true
+Style/ExponentialNotation:
+  Enabled: true
+Style/SlicingWithRange:
+  Enabled: true
+
+# -------------------------------------------------
+# Layout rules from Flexport to approximate Prettier
+
+Layout/AccessModifierIndentation:
+  Enabled: true
+
+Layout/HashAlignment:
+  Enabled: true
+  EnforcedColonStyle: key
+  EnforcedLastArgumentHashStyle: always_inspect
+
+Layout/ParameterAlignment:
+  Enabled: true
+  EnforcedStyle: with_first_parameter
+
+Layout/BlockAlignment:
+  Enabled: true
+  EnforcedStyleAlignWith: start_of_line
+
+Layout/CaseIndentation:
+  Enabled: true
+  EnforcedStyle: end
+
+Layout/ClosingParenthesisIndentation:
+  Enabled: true
+
+Layout/DotPosition:
+  EnforcedStyle: leading
+
+Layout/EmptyLineBetweenDefs:
+  Enabled: true
+
+Layout/EmptyLines:
+  Enabled: true
+
+Layout/EmptyLineAfterGuardClause:
+  Enabled: false
+
+Layout/EmptyLinesAroundAccessModifier:
+  Enabled: true
+
+Layout/EmptyLinesAroundBlockBody:
+  Enabled: true
+
+# Note(maxh): Not sure about this one given we already have EmptyLines above.
+Layout/EmptyLinesAroundClassBody:
+  Enabled: true
+
+# Why AllowForAlignment: false?
+# 1) Cleaner diffs. For example, when you add a longer key to a hash,
+#    you need to update all the other rows to maintain alignment. This
+#    means your diffs become harder to read. It looks like more is changing
+#    than actually is.
+# 2) Better to have one way to do things than two.
+# 3) You can still use rubocop:disable comments in exceptional cases.
+Layout/ExtraSpacing:
+  Enabled: true
+  AllowForAlignment: false
+
+Layout/FirstArrayElementLineBreak:
+  Enabled: true
+
+Layout/FirstHashElementLineBreak:
+  Enabled: true
+
+Layout/FirstMethodArgumentLineBreak:
+  Enabled: true
+
+Layout/HeredocArgumentClosingParenthesis:
+  Enabled: true
+
+Layout/FirstArgumentIndentation:
+  Enabled: true
+  EnforcedStyle: consistent
+
+Layout/FirstArrayElementIndentation:
+  Enabled: true
+  EnforcedStyle: consistent
+
+Layout/FirstHashElementIndentation:
+  Enabled: true
+  EnforcedStyle: consistent
+
+Layout/FirstParameterIndentation:
+  Enabled: true
+  EnforcedStyle: consistent
+
+Layout/IndentationConsistency:
+  Enabled: true
+
+Layout/IndentationWidth:
+  Enabled: true
+
+Layout/LeadingCommentSpace:
+  Enabled: true
+
+Layout/MultilineArrayLineBreaks:
+  Enabled: true
+
+Layout/MultilineBlockLayout:
+  Enabled: true
+
+Layout/MultilineHashBraceLayout:
+  Enabled: true
+
+Layout/MultilineHashKeyLineBreaks:
+  Enabled: true
+
+Layout/MultilineMethodArgumentLineBreaks:
+  Enabled: true
+
+Layout/MultilineMethodCallBraceLayout:
+  Enabled: true
+
+Layout/MultilineMethodCallIndentation:
+  Enabled: true
+  EnforcedStyle: indented
+
+Layout/MultilineOperationIndentation:
+  Enabled: true
+
+# This doesn't play nice with private_class_method.
+Layout/RescueEnsureAlignment:
+  Enabled: false
+
+Layout/SpaceAfterComma:
+  Enabled: true
+
+Layout/SpaceAroundEqualsInParameterDefault:
+  Enabled: true
+
+Layout/SpaceAroundOperators:
+  Enabled: true
+
+Layout/SpaceBeforeBlockBraces:
+  Enabled: true
+
+Layout/SpaceBeforeFirstArg:
+  Enabled: false
+
+Layout/SpaceInsideBlockBraces:
+  Enabled: true
+  EnforcedStyle: space
+
+Layout/SpaceInsideHashLiteralBraces:
+  Enabled: true
+  EnforcedStyle: space
+
+Layout/SpaceInLambdaLiteral:
+  Enabled: true
+  SupportedStyles:
+    - require_no_space
+
+# Enforce final new line.
+Layout/TrailingEmptyLines:
+  Enabled: true
+  SupportedStyles:
+    - final_newline
+
+Layout/TrailingWhitespace:
+  Enabled: true
+
+Layout/EndAlignment:
+  EnforcedStyleAlignWith: variable
+
+# This seems to break some require lines somehow:
+Layout/EmptyLinesAroundArguments:
+  Enabled: false
+
+Layout/EmptyLinesAroundAttributeAccessor:
+  Enabled: true
+
+Layout/SpaceAroundMethodCallOperator:
+  Enabled: true
