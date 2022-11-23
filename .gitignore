@@ -59,3 +59,5 @@ build-iPhoneSimulator/
 .bundle/config
 python-executions
 tmp
+stdout.log
+stderr.log

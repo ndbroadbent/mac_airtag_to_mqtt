@@ -13,7 +13,7 @@ require 'dotenv/load'
 require 'mqtt'
 require 'pry-byebug'
 
-AIRTAGS_DATA_FILE = "#{Dir.home}/Library/Caches/com.apple.findmy.fmipcore/Items.data".freeze
+AIRTAGS_DATA_FILE = "/Users/#{ENV.fetch('MAC_USERNAME')}/Library/Caches/com.apple.findmy.fmipcore/Items.data".freeze
 
 # DEBUG = true
 DEBUG = false
@@ -78,6 +78,7 @@ loop do
           {
             state_topic:,
             name:,
+            unique_id: "mac_airtag_to_mqtt_#{airtag['identifier']}",
             payload_home: 'home',
             payload_not_home: 'not_home',
             json_attributes_topic:,
