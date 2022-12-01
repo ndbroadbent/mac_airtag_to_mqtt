@@ -13,6 +13,8 @@ require 'dotenv/load'
 require 'mqtt'
 require 'pry-byebug'
 
+MQTT_TOPIC_NAME = ENV.fetch('MQTT_TOPIC_NAME')
+MQTT_TOPIC = "mac_airtag_to_mqtt_#{MQTT_TOPIC_NAME}".freeze
 AIRTAGS_DATA_FILE = "/Users/#{ENV.fetch('MAC_USERNAME')}/Library/Caches/com.apple.findmy.fmipcore/Items.data".freeze
 
 # DEBUG = true
@@ -27,7 +29,7 @@ loop do
       port:,
       username: ENV.fetch('MQTT_USERNAME'),
       password: ENV.fetch('MQTT_PASSWORD'),
-      will_topic: 'mac_airtag_to_mqtt/status',
+      will_topic: "#{MQTT_TOPIC}/status",
       will_payload: 'offline',
       will_qos: 1,
       will_retain: true
@@ -35,18 +37,18 @@ loop do
     puts 'Connected!'
 
     client.publish(
-      'homeassistant/binary_sensor/mac_airtag_to_mqtt/connectivity/config',
+      "homeassistant/binary_sensor/#{MQTT_TOPIC}/connectivity/config",
       {
         name: 'Mac Airtag To MQTT',
-        uniq_id: 'mac_airtag_to_mqtt_connectivity',
-        stat_t: 'mac_airtag_to_mqtt/status',
+        uniq_id: "#{MQTT_TOPIC}_connectivity",
+        stat_t: "#{MQTT_TOPIC}/status",
         dev_cla: 'connectivity',
         pl_on: 'online',
         pl_off: 'offline',
       }.to_json
     )
     client.publish(
-      'mac_airtag_to_mqtt/status',
+      "#{MQTT_TOPIC}/status",
       'online'
     )
 
@@ -55,9 +57,9 @@ loop do
       airtags = JSON.parse(File.read(AIRTAGS_DATA_FILE))
       puts "Publishing MQTT messages for #{airtags.count} airtags..." if DEBUG
       airtags.each do |airtag|
-        state_topic = "mac_airtag_to_mqtt/#{airtag['identifier']}/state"
-        json_attributes_topic = "mac_airtag_to_mqtt/#{airtag['identifier']}/attributes"
-        ha_config_topic = "homeassistant/device_tracker/#{airtag['identifier']}/config"
+        state_topic = "#{MQTT_TOPIC}/#{airtag['identifier']}/state"
+        json_attributes_topic = "#{MQTT_TOPIC}/#{airtag['identifier']}/attributes"
+        ha_config_topic = "homeassistant/device_tracker/#{MQTT_TOPIC}_#{airtag['identifier']}/config"
 
         name = airtag['name']
         location = airtag['location'] || {}
@@ -78,7 +80,7 @@ loop do
           {
             state_topic:,
             name:,
-            unique_id: "mac_airtag_to_mqtt_#{airtag['identifier']}",
+            unique_id: "#{MQTT_TOPIC}_#{airtag['identifier']}",
             payload_home: 'home',
             payload_not_home: 'not_home',
             json_attributes_topic:,
