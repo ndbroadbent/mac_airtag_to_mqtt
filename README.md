@@ -6,36 +6,13 @@ Fetches AirTag data from `~/Library/Caches/com.apple.findmy.fmipcore/Items.data`
 
 You will probably need to adjust the shebang at the top of `mac_airtag_to_mqtt.rb` to point to your Ruby installation. (It was tricky to get rbenv to work with launchd.)
 
-Create file at `/Library/LaunchDaemons/com.ndbroadbent.mac_airtag_to_mqtt.plist`:
+Create launchctl plist at `/Library/LaunchDaemons/com.ndbroadbent.mac_airtag_to_mqtt.plist`:
 
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<plist version="1.0">
-    <dict>
-        <key>Label</key>
-        <string>com.ndbroadbent.mac_airtag_to_mqtt</string>
-        <key>ProgramArguments</key>
-        <array>
-          <string>/usr/local/bin/fdautil</string>
-          <string>exec</string>
-          <string>/Users/USERNAME/path/to/mac_airtag_to_mqtt/mac_airtag_to_mqtt.rb</string>
-        </array>
-        <key>WorkingDirectory</key>
-        <string>/Users/USERNAME/path/to/mac_airtag_to_mqtt/</string>
-        <key>StandardOutPath</key>
-        <string>/Users/USERNAME/path/to/mac_airtag_to_mqtt/stdout.log</string>
-        <key>StandardErrorPath</key>
-        <string>/Users/USERNAME/path/to/mac_airtag_to_mqtt/stderr.log</string>
-        <key>RunAtLoad</key>
-        <true/>
-        <key>KeepAlive</key>
-        <true/>
-    </dict>
-</plist>
+```
+sed -e "s%/path/to/mac_airtag_to_mqtt%$PWD%g" mac_airtag_to_mqtt.plist | sudo tee /Library/LaunchDaemons/com.ndbroadbent.mac_airtag_to_mqtt.plist
 ```
 
-And run:
+Then run:
 
     sudo launchctl load /Library/LaunchDaemons/com.ndbroadbent.mac_airtag_to_mqtt.plist
 

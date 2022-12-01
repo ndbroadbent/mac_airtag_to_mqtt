@@ -8,14 +8,14 @@
         <array>
           <string>/usr/local/bin/fdautil</string>
           <string>exec</string>
-          <string>/Users/USERNAME/path/to/mac_airtag_to_mqtt/mac_airtag_to_mqtt.rb</string>
+          <string>/path/to/mac_airtag_to_mqtt/mac_airtag_to_mqtt.rb</string>
         </array>
         <key>WorkingDirectory</key>
-        <string>/Users/USERNAME/path/to/mac_airtag_to_mqtt/</string>
+        <string>/path/to/mac_airtag_to_mqtt/</string>
         <key>StandardOutPath</key>
-        <string>/Users/USERNAME/path/to/mac_airtag_to_mqtt/stdout.log</string>
+        <string>/path/to/mac_airtag_to_mqtt/stdout.log</string>
         <key>StandardErrorPath</key>
-        <string>/Users/USERNAME/path/to/mac_airtag_to_mqtt/stderr.log</string>
+        <string>/path/to/mac_airtag_to_mqtt/stderr.log</string>
         <key>RunAtLoad</key>
         <true/>
         <key>KeepAlive</key>
