@@ -1,4 +1,4 @@
-# mac_airtag_to_mqtt
+# mac\_airtag\_to\_mqtt
 
 Fetches AirTag data from `~/Library/Caches/com.apple.findmy.fmipcore/Items.data`, creates entities in Home Assistant with location data via [MQTT Discovery](https://www.home-assistant.io/integrations/mqtt/#mqtt-discovery).
 
@@ -6,14 +6,25 @@ Fetches AirTag data from `~/Library/Caches/com.apple.findmy.fmipcore/Items.data`
 
 You will probably need to adjust the shebang at the top of `mac_airtag_to_mqtt.rb` to point to your Ruby installation. (It was tricky to get rbenv to work with launchd.)
 
-Create launchctl plist at `/Library/LaunchDaemons/com.ndbroadbent.mac_airtag_to_mqtt.plist`:
+### fdautil
 
-```
-sed -e "s%/path/to/mac_airtag_to_mqtt%$PWD%g" mac_airtag_to_mqtt.plist | sudo tee /Library/LaunchDaemons/com.ndbroadbent.mac_airtag_to_mqtt.plist
-```
+You will need ```fdautil``` which is part of [LaunchControl](https://www.soma-zone.com/LaunchControl/)
+
+* Install LaunchControll
+* Settings, Utilities, Install fdautils (follow the instructions to allow full disk access)
+
+### plist
+
+Run
+
+    install.sh
+    
+to setup and install ```mac_airtag_to_mqtt.plist``` to ```/Library/LaunchDaemons/com.ndbroadbent.mac_airtag_to_mqtt.plist```
 
 Then run:
 
     sudo launchctl load /Library/LaunchDaemons/com.ndbroadbent.mac_airtag_to_mqtt.plist
 
-(To stop you need to run `launchctl unload /Library/LaunchDaemons/com.ndbroadbent.mac_airtag_to_mqtt.plist`)
+To stop you need to run 
+
+    sudo launchctl unload /Library/LaunchDaemons/com.ndbroadbent.mac_airtag_to_mqtt.plist
